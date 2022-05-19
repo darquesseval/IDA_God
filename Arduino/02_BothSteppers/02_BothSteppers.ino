@@ -1,74 +1,91 @@
-/*
-   Draws a flower petal with both motors for demo purposes
-   Try difference between SyncDriver and MultiDriver
-
-   Adapted 2021/2022 by Gordan Savicic
-   based on stepperdriver example Copyright (C)2015-2017 Laurentiu Badea
-
-   This file may be redistributed under the terms of the MIT license.
-   A copy of this license has been included with this distribution in the file LICENSE.
-*/
 #include <Arduino.h>
-#include "BasicStepperDriver.h"
-#include "MultiDriver.h"
-#include "SyncDriver.h"
 
 // Motor steps per revolution. Most steppers are 200 steps or 1.8 degrees/step
-#define MOTOR_STEPS 360
-#define RPM 250
+#define MOTOR_STEPS 200
+#define RPM 120
 
-// Since microstepping is set externally, make sure this matches the selected mode
-// If it doesn't, the motor will move at a different RPM than chosen
-// 1=full step, 2=half step etc.
-#define MICROSTEPS 2
+#define DIR 8
+#define STEP 9
+#define SLEEP 13 // optional (just delete SLEEP from everywhere if not used)
 
-// All the wires needed for full functionality
-#define DIR_L 5
-#define STEP_L 2
+/*
+ * Choose one of the sections below that match your board
+ */
 
-#define DIR_R 6
-#define STEP_R 3
-// Uncomment line to use enable/disable functionality
-#define SLEEP 8
+#include "DRV8834.h"
+#define M0 10
+#define M1 11
+DRV8834 stepper(MOTOR_STEPS, DIR, STEP, SLEEP, M0, M1);
 
-// 2-wire basic config, microstepping is hardwired on the driver
+// #include "A4988.h"
+// #define MS1 10
+// #define MS2 11
+// #define MS3 12
+// A4988 stepper(MOTOR_STEPS, DIR, STEP, SLEEP, MS1, MS2, MS3);
+
+// #include "DRV8825.h"
+// #define MODE0 10
+// #define MODE1 11
+// #define MODE2 12
+// DRV8825 stepper(MOTOR_STEPS, DIR, STEP, SLEEP, MODE0, MODE1, MODE2);
+
+// #include "DRV8880.h"
+// #define M0 10
+// #define M1 11
+// #define TRQ0 6
+// #define TRQ1 7
+// DRV8880 stepper(MOTOR_STEPS, DIR, STEP, SLEEP, M0, M1, TRQ0, TRQ1);
+
+// #include "BasicStepperDriver.h" // generic
 // BasicStepperDriver stepper(MOTOR_STEPS, DIR, STEP);
 
-// Uncomment line to use enable/disable functionality
-BasicStepperDriver stepperL(MOTOR_STEPS, DIR_L, STEP_L, SLEEP);
-BasicStepperDriver stepperR(MOTOR_STEPS, DIR_R, STEP_R, SLEEP);
-
-//MultiDriver controller(stepperL, stepperR);
-MultiDriver controller(stepperL, stepperR);
-
-//const float full_rotation_R = MOTOR_STEPS * MICROSTEPS * 2.5;
-const float rotation_R = MOTOR_STEPS * MICROSTEPS * 0.3;
-const float back_rotation_R = MOTOR_STEPS * MICROSTEPS * -0.2;
-const float rotation_L = MOTOR_STEPS * MICROSTEPS * 1;
-const float back_rotation_L = MOTOR_STEPS * MICROSTEPS * -2;
-const int step_size_L = 140;
-
-
-
-void setup()
-{
-  
-  stepperL.begin(RPM, MICROSTEPS);
-  stepperR.begin(RPM, MICROSTEPS);
-  // this is needed for enabling/disabling steppers 
-  stepperL.setEnableActiveState(LOW);
-  stepperR.setEnableActiveState(LOW);
-  
-  stepperR.enable();
-  stepperL.enable();
-
- 
+void setup() {
+    /*
+     * Set target motor RPM.
+     */
+    stepper.begin(RPM);
+    // if using enable/disable on ENABLE pin (active LOW) instead of SLEEP uncomment next line
+    // stepper.setEnableActiveState(LOW);
+    stepper.enable();
+    
+    // set current level (for DRV8880 only). 
+    // Valid percent values are 25, 50, 75 or 100.
+    // stepper.setCurrent(100);
 }
 
-void loop()
-{
+void loop() {
+    delay(1000);
 
-    controller.move(rotation_L, rotation_R);
-    controller.move(rotation_R, back_rotation_L); 
+    /*
+     * Moving motor in full step mode is simple:
+     */
+    stepper.setMicrostep(1);  // Set microstep mode to 1:1
 
+    // One complete revolution is 360°
+    stepper.rotate(360);     // forward revolution
+    stepper.rotate(-360);    // reverse revolution
+
+    // One complete revolution is also MOTOR_STEPS steps in full step mode
+    stepper.move(MOTOR_STEPS);    // forward revolution
+    stepper.move(-MOTOR_STEPS);   // reverse revolution
+
+    /*
+     * Microstepping mode: 1, 2, 4, 8, 16 or 32 (where supported by driver)
+     * Mode 1 is full speed.
+     * Mode 32 is 32 microsteps per step.
+     * The motor should rotate just as fast (at the set RPM),
+     * but movement precision is increased, which may become visually apparent at lower RPMs.
+     */
+    stepper.setMicrostep(8);   // Set microstep mode to 1:8
+
+    // In 1:8 microstepping mode, one revolution takes 8 times as many microsteps
+    stepper.move(8 * MOTOR_STEPS);    // forward revolution
+    stepper.move(-8 * MOTOR_STEPS);   // reverse revolution
+    
+    // One complete revolution is still 360° regardless of microstepping mode
+    // rotate() is easier to use than move() when no need to land on precise microstep position
+    stepper.rotate(360);
+    stepper.rotate(-360);
+
+    delay(5000);
 }
