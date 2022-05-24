@@ -21,9 +21,9 @@ let prayersText = "GEBETE";
 function preload(){
     LexendZettaRegular = loadFont("https://beamish-scone-b8a64e.netlify.app/Fonts/Lexend_Zetta/static/LexendZetta-Regular.ttf")
     LexendZettaBold = loadFont("https://beamish-scone-b8a64e.netlify.app/Fonts/Lexend_Zetta/static/LexendZetta-Bold.ttf")
-    intro1 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro1.png');
-    intro2 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro2.png');
-    intro3 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro3.png');
+    intro1 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro11.png');
+    intro2 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro22.png');
+    intro3 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro33.png');
     intro =[intro1,intro2, intro3];
     displayedIntro = intro[0];
 }
