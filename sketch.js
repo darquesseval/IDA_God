@@ -61,10 +61,10 @@ function draw() {
     background(102, 143, 83)
     // fill(255,0,0);
     // rect(i,30,20);
-    bird.resize(50, 0);
-    image(bird,i,0);
     displayedIntro.resize(windowWidth, 0);
     image(displayedIntro, 0, 0);
+    bird.resize(50, 0);
+    image(bird,i,50);
 
 
     if(i>=windowWidth){
