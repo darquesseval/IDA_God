@@ -1,6 +1,8 @@
 @font-face {
-    font-family: 'LexendZetta';
-    src: url('/Fonts/Lexend_Zetta/static/LexendZetta-Regular.ttf') format('ttf');
+    font-family: 'LexendZettaRegular';
+    src: url('https://beamish-scone-b8a64e.netlify.app/Fonts/Lexend_Zetta/static/LexendZetta-Regular.ttf') format('ttf');
+    font-family: 'LexendZettaBold';
+    src: url('https://beamish-scone-b8a64e.netlify.app/Fonts/Lexend_Zetta/static/LexendZetta-Bold.ttf') format('ttf');
   }
 
   html{

@@ -1,5 +1,5 @@
 let button;
-let LexendZetta;
+let LexendZettaRegular, LexendZettaBold;
 let i=0;
 let j=1;
 let direction = true;
@@ -12,16 +12,18 @@ let intro2;
 let intro3;
 let intro = []
 let displayedIntro
-let buttonText = "Weiter";
+let buttonText = "WEITER";
+let prayersText = "GEBETE";
 // let displayedText = intro[0];
 
 
 
 function preload(){
-    LexendZetta = loadFont("./Fonts/Lexend_Zetta/static/LexendZetta-Regular.ttf")
-    intro1 = loadImage('./Images/Intro1.png');
-    intro2 = loadImage('./Images/Intro2.png');
-    intro3 = loadImage('./Images/Intro3.png');
+    LexendZettaRegular = loadFont("https://beamish-scone-b8a64e.netlify.app/Fonts/Lexend_Zetta/static/LexendZetta-Regular.ttf")
+    LexendZettaBold = loadFont("https://beamish-scone-b8a64e.netlify.app/Fonts/Lexend_Zetta/static/LexendZetta-Bold.ttf")
+    intro1 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro1.png');
+    intro2 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro2.png');
+    intro3 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro3.png');
     intro =[intro1,intro2, intro3];
     displayedIntro = intro[0];
 }
@@ -33,12 +35,12 @@ function setup() {
   background(102, 143, 83);
 
   button = createButton('');
-  button.position(windowWidth/16*7, windowHeight/18*14.9);
+  button.position(windowWidth/12*9.3, windowHeight/18*15.2);
   button.style('background-color', 'transparent');
   button.style('color', 'white');
   button.style('font-size', '2vw');
-  button.style('font-familiy', 'LexendZetta, regular');
-  button.size(windowWidth/10, windowHeight/14)
+  button.style('font-familiy', 'LexendZettaRegular, regular');
+  button.size(windowWidth/9, windowHeight/14)
    button.mousePressed(startGame);
 
 }
@@ -64,12 +66,17 @@ function draw() {
     // } else {
     //     i-=5;
     // }  
-    textFont(LexendZetta);
+    textFont(LexendZettaRegular);
     textAlign(CENTER);
     textSize(windowWidth/60)
     fill(255)
     // text(displayedText, windowWidth/2, 100);
-    text(buttonText, windowWidth/2, windowHeight/9*8);
+    
+    textFont(LexendZettaBold);
+    text(buttonText, windowWidth/6*5, windowHeight/9*8);
+
+    textFont(LexendZettaBold);
+    text(prayersText, windowWidth/6*1, windowHeight/9*7);
 
     }
 
