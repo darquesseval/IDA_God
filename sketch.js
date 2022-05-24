@@ -1,4 +1,5 @@
 let button;
+let buttonDecline
 let LexendZettaRegular, LexendZettaBold;
 let i=0;
 let j=1;
@@ -92,6 +93,11 @@ function draw() {
     let displayedPrayers = random(prayers);
     textFont(LexendZettaRegular);
     text(displayedPrayers, windowWidth/6*1, windowHeight/9*7.5);
+    delayTime(20)
+    // if buttonDecline.mousePressed() {
+
+    // }
+
 
     }
 
@@ -103,4 +109,3 @@ function startGame() {
     displayedIntro = intro[j];
     j=j+1;
      }
-        
