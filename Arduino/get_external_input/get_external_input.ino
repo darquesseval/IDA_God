@@ -13,7 +13,7 @@ String HTMLpage = "";
 int LED = D2;
  
 void setup(void){
-  HTMLpage += "<head><title>Webserver Tutorial</title></head><h3>ESP8266 Webserver Demo (Toggle LED)</h3><p>LED <a href=\"ledON\"><button>ON</button></a>&nbsp;<a href=\"ledOFF\"><button>OFF</button></a></p>";
+  HTMLpage += "<!doctype html><html><head><script crossorigin=\"anonymous|use-credentials\"><link rel=\"shortcut icon\" href=\"#\"><script src=\"https://beamish-scone-b8a64e.netlify.app/Libraries/p5/p5.js\"></script><script src=\"https://beamish-scone-b8a64e.netlify.app/sketch.js\"></script><title>This is the title of the webpage!</title></head></html>";
  
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LOW);
