@@ -2,6 +2,7 @@ let button;
 let LexendZettaRegular, LexendZettaBold;
 let i=0;
 let j=1;
+// let k=0;
 let direction = true;
 // let intro = [
 //     "Willkommen zum Eignungstest für Gottheiten!\n\nTestet euer göttliches Geschick. Versucht zu zweit ein Monument für die Menschen im Dorf zu bauen.\n\nEine Person baut, während die andere schaut und Anweisungen gibt.",
@@ -11,10 +12,16 @@ let intro1;
 let intro2;
 let intro3;
 let intro = []
-let displayedIntro
+let displayedIntro;
+// let prayers = [
+//     "Errichtet ein Stockwerk mit nur einer einzigen Art Bausteinsorte",
+//     "Es dürfen keine zwei gleichen Bausteine nebeneinander liegen"
+// ]
+// let displayedPrayers;
 let buttonText = "WEITER";
 let prayersText = "GEBETE";
 // let displayedText = intro[0];
+let bird;
 
 
 
@@ -26,6 +33,8 @@ function preload(){
     intro3 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro33.png');
     intro =[intro1,intro2, intro3];
     displayedIntro = intro[0];
+    // displayedPrayers = prayers [k];
+    bird = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/bird.png');
 }
 
 
@@ -52,20 +61,22 @@ function draw() {
     background(102, 143, 83)
     // fill(255,0,0);
     // rect(i,30,20);
+    bird.resize(50, 0);
+    image(bird,i,0);
     displayedIntro.resize(windowWidth, 0);
     image(displayedIntro, 0, 0);
 
 
-    // if(i>=windowWidth){
-    //     direction = false;
-    // } else if(i<=0){
-    //     direction = true;
-    // }  
-    // if(direction == true){
-    //     i+=5;
-    // } else {
-    //     i-=5;
-    // }  
+    if(i>=windowWidth){
+        direction = false;
+    } else if(i<=0){
+        direction = true;
+    }  
+    if(direction == true){
+        i+=5;
+    } else {
+        i-=5;
+    }  
     textFont(LexendZettaRegular);
     textAlign(CENTER);
     textSize(windowWidth/60)
