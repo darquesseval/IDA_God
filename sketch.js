@@ -76,7 +76,7 @@ function draw() {
     text(buttonText, windowWidth/6*5, windowHeight/9*8);
 
     textFont(LexendZettaBold);
-    text(prayersText, windowWidth/6*1, windowHeight/9*7);
+    text(prayersText, windowWidth/6*1, windowHeight/9*6.5);
 
     }
 
