@@ -1,0 +1,10 @@
+{
+  "house01": {
+    "start": false,
+    "rejected": false
+  },
+  "house02": {
+    "start": false,
+    "rejected": false
+  }
+}
