@@ -142,12 +142,15 @@ function draw() {
     if (millis() > timer){
         displayedPrayers = random(prayers);
         timer=timer+random(10000,30000);
-        buttonDecline = createButton('ABLEHNEN');
+        buttonDecline.show();
+        buttonAchieved.show();
         print("New Prayer")
     }
     if (millis() > timer2){
         displayedPrayers2 = random(prayers2);
         timer2=timer2+random(10000,30000);
+        buttonDecline2.show();
+        buttonAchieved2.show();
         print("New Prayer")
     }
     // print("millis: "+millis() + " timer: "+timer);
@@ -167,20 +170,20 @@ function startGame() {
 function declinePrayers() {
     displayedPrayers = ""
     buttonDecline.hide();
+    buttonAchieved.hide();
     print("Noo!")
 }
 function achievedPrayers() {
     displayedPrayers = random(prayers);
-    buttonAchieved.hide();
     print("Yey!")
 }
 function declinePrayers2() {
     displayedPrayers2 = ""
     buttonDecline2.hide();
+    buttonAchieved2.hide();
     print("Noo!")
 }
 function achievedPrayers2() {
     displayedPrayers2 = random(prayers2);
-    buttonAchieved2.hide();
     print("Yey!")
 }
