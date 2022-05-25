@@ -91,12 +91,14 @@ function draw() {
     textFont(LexendZettaBold);
     text(prayersText, windowWidth/6*1, windowHeight/9*6.5);
 
-    print("second: "+second() + " timer: "+timer);
+    print("seconds: "+second() + " timer: "+timer);
     textFont(LexendZettaRegular);
+    textAlign(RIGHT);
     text(displayedPrayers, windowWidth/6*1, windowHeight/9*7.5);
     if (second() > timer){
         let displayedPrayers = random(prayers);
         timer=timer+random(20,30);
+        print("Prayer changed")
 
     }
 
