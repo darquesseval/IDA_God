@@ -1,5 +1,6 @@
 let button;
 let buttonDecline;
+let buttonAchieved;
 let LexendZettaRegular, LexendZettaBold;
 let i=0;
 let j=1;
@@ -16,6 +17,7 @@ let intro3;
 let intro = []
 let displayedIntro;
 let prayers = [
+    "",
     "Errichtet ein Stockwerk mit nur \neiner einzigen Art Bausteinsorte",
     "Es dürfen keine zwei gleichen \nBausteine nebeneinander liegen",
     "Ersetzt auf der unteren Plattform \nalle Bausteine durch Würfel",
@@ -55,6 +57,23 @@ function setup() {
   button.size(windowWidth/9, windowHeight/14)
    button.mousePressed(startGame);
 
+   buttonDecline = createButton('ABLEHNEN');
+   buttonDecline.position(windowWidth/12*6, windowHeight/18*15.2);
+   buttonDecline.style('background-color', 'transparent');
+   buttonDecline.style('color', 'white');
+   buttonDecline.style('font-size', '2vw');
+   buttonDecline.style('font-familiy', 'LexendZettaRegular, regular');
+   buttonDecline.size(windowWidth/9, windowHeight/14)
+   buttonDecline.mousePressed(declinePrayers)
+
+   buttonAchieved = createButton('ABLEHNEN');
+   buttonAchieved.position(windowWidth/12*8, windowHeight/18*15.2);
+   buttonAchieved.style('background-color', 'transparent');
+   buttonAchieved.style('color', 'white');
+   buttonAchieved.style('font-size', '2vw');
+   buttonAchieved.style('font-familiy', 'LexendZettaRegular, regular');
+   buttonAchieved.size(windowWidth/9, windowHeight/14)
+   buttonAchieved.mousePressed(achievedPrayers)
 }
 
 
@@ -102,15 +121,6 @@ function draw() {
     textAlign(LEFT);
     text(displayedPrayers, windowWidth/12*1, windowHeight/9*7.5);
 
-    buttonDecline = createButton('Ablehnen');
-    buttonDecline.position(windowWidth/12*6, windowHeight/18*15.2);
-    buttonDecline.style('background-color', 'transparent');
-    buttonDecline.style('color', 'white');
-    buttonDecline.style('font-size', '2vw');
-    buttonDecline.style('font-familiy', 'LexendZettaRegular, regular');
-    buttonDecline.size(windowWidth/9, windowHeight/14)
-    buttonDecline.mousePressed(declinePrayers)
-
 }
 
 function startGame() {
@@ -121,4 +131,9 @@ function startGame() {
      }
 function declinePrayers() {
     displayedPrayers = prayers[0]
+    print("Noo!")
+}
+function declinePrayers() {
+    achievedPrayers = prayers[0]
+    print("Yey!")
 }
