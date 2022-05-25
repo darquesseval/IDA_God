@@ -3,7 +3,7 @@ let buttonDecline
 let LexendZettaRegular, LexendZettaBold;
 let i=0;
 let j=1;
-let k=0;
+let timer = 0;
 let direction = true;
 // let intro = [
 //     "Willkommen zum Eignungstest für Gottheiten!\n\nTestet euer göttliches Geschick. Versucht zu zweit ein Monument für die Menschen im Dorf zu bauen.\n\nEine Person baut, während die andere schaut und Anweisungen gibt.",
@@ -90,14 +90,12 @@ function draw() {
     textFont(LexendZettaBold);
     text(prayersText, windowWidth/6*1, windowHeight/9*6.5);
 
-    let displayedPrayers = random(prayers);
-    textFont(LexendZettaRegular);
-    text(displayedPrayers, windowWidth/6*1, windowHeight/9*7.5);
-    delayTime(20)
-    // if buttonDecline.mousePressed() {
-
-    // }
-
+    print("millis: "+millis() + " timer: "+timer);
+    if (second() > timer){
+        let displayedPrayers = random(prayers);
+        textFont(LexendZettaRegular);
+        text(displayedPrayers, windowWidth/6*1, windowHeight/9*7.5);
+        timer=timer+random(20,30);
 
     }
 
