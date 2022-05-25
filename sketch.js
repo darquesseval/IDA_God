@@ -17,7 +17,9 @@ let intro = []
 let displayedIntro;
 let prayers = [
     "Errichtet ein Stockwerk mit nur einer einzigen Art Bausteinsorte",
-    "Es dürfen keine zwei gleichen Bausteine nebeneinander liegen"
+    "Es dürfen keine zwei gleichen Bausteine nebeneinander liegen",
+    "Ersetzt auf der unteren Plattform alle Bausteine durch: Würfel",
+    "Erhöht die unterste Plattform um mindestens einen weiteren Bauustein."
 ]
 let displayedPrayers;
 let buttonText = "WEITER";
@@ -93,7 +95,7 @@ function draw() {
 
     print("seconds: "+second() + " timer: "+timer);
     textFont(LexendZettaRegular);
-    textAlign(RIGHT);
+    textAlign(LEFT);
     text(displayedPrayers, windowWidth/6*1, windowHeight/9*7.5);
     if (second() > timer){
         let displayedPrayers = random(prayers);
