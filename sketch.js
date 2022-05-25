@@ -97,7 +97,7 @@ function draw() {
     textAlign(LEFT);
     text(displayedPrayers, windowWidth/6*1, windowHeight/9*7.5);
     if (millis() > timer){
-        let displayedPrayers = random(prayers);
+        displayedPrayers = random(prayers);
         timer=timer+random(10000,30000);
         print("Prayer changed")
 
