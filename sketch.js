@@ -48,7 +48,7 @@ function preload(){
     intro3 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro33.png');
     intro =[intro1,intro2, intro3];
     displayedIntro = intro[0];
-    // bird = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/bird.png');
+    // bird = loadImage('./Images/bird.png');
 }
 
 
@@ -57,8 +57,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   background(102, 143, 83);
 
-  button = createButton('');
-  button.position(windowWidth/12*9.3, windowHeight/18*15.2);
+  button = createButton('WEITER');
+  button.position(windowWidth/20*17, windowHeight/20*14);
   button.style('background-color', 'transparent');
   button.style('color', 'white');
   button.style('font-size', '2vw');
@@ -67,7 +67,7 @@ function setup() {
    button.mousePressed(startGame);
 
    buttonDecline = createButton('ABLEHNEN');
-   buttonDecline.position(windowWidth/12*7, windowHeight/18*15.2);
+   buttonDecline.position(windowWidth/20*12, windowHeight/20*15.5);
    buttonDecline.style('background-color', 'transparent');
    buttonDecline.style('color', 'white');
    buttonDecline.style('font-size', '2vw');
@@ -76,7 +76,7 @@ function setup() {
    buttonDecline.mousePressed(declinePrayers)
 
    buttonAchieved = createButton('ERREICHT');
-   buttonAchieved.position(windowWidth/12*8, windowHeight/18*15.2);
+   buttonAchieved.position(windowWidth/20*14.5, windowHeight/20*15.5);
    buttonAchieved.style('background-color', 'transparent');
    buttonAchieved.style('color', 'white');
    buttonAchieved.style('font-size', '2vw');
@@ -85,7 +85,7 @@ function setup() {
    buttonAchieved.mousePressed(achievedPrayers)
 
    buttonDecline2 = createButton('ABLEHNEN');
-   buttonDecline2.position(windowWidth/12*7, windowHeight/18*17);
+   buttonDecline2.position(windowWidth/20*12, windowHeight/20*17.5);
    buttonDecline2.style('background-color', 'transparent');
    buttonDecline2.style('color', 'white');
    buttonDecline2.style('font-size', '2vw');
@@ -94,7 +94,7 @@ function setup() {
    buttonDecline2.mousePressed(declinePrayers2)
 
    buttonAchieved2 = createButton('ERREICHT');
-   buttonAchieved2.position(windowWidth/12*8, windowHeight/18*17);
+   buttonAchieved2.position(windowWidth/20*14.5, windowHeight/20*17.5);
    buttonAchieved2.style('background-color', 'transparent');
    buttonAchieved2.style('color', 'white');
    buttonAchieved2.style('font-size', '2vw');
@@ -133,14 +133,17 @@ function draw() {
     fill(255)
     // text(displayedText, windowWidth/2, 100);
     
-    textFont(LexendZettaBold);
-    text(buttonText, windowWidth/6*5, windowHeight/9*8);
+    // textFont(LexendZettaBold);
+    // text(buttonText, windowWidth/6*5, windowHeight/9*8);
 
     textFont(LexendZettaBold);
-    text(prayersText, windowWidth/6*1, windowHeight/9*6.5);
+    textAlign(LEFT);
+    text(prayersText, windowWidth/20*1, windowHeight/20*15);
 
     if (millis() > timer){
-        displayedPrayers = random(prayers);
+        let q = random(0, prayers.lenght-1)
+        displayedPrayers = prayers[q];
+        prayers.splice(q, 1)
         timer=timer+random(10000,30000);
         buttonDecline.show();
         buttonAchieved.show();
@@ -156,8 +159,8 @@ function draw() {
     // print("millis: "+millis() + " timer: "+timer);
     textFont(LexendZettaRegular);
     textAlign(LEFT);
-    text(displayedPrayers, windowWidth/12*1, windowHeight/9*7.5);
-    text(displayedPrayers2, windowWidth/12*1, windowHeight/9*8.5);
+    text(displayedPrayers, windowWidth/20*1, windowHeight/20*16);
+    text(displayedPrayers2, windowWidth/20*1, windowHeight/20*18);
 
 }
 
