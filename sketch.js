@@ -90,7 +90,7 @@ function draw() {
     textFont(LexendZettaBold);
     text(prayersText, windowWidth/6*1, windowHeight/9*6.5);
 
-    print("millis: "+millis() + " timer: "+timer);
+    print("second: "+second() + " timer: "+timer);
     if (second() > timer){
         let displayedPrayers = random(prayers);
         textFont(LexendZettaRegular);
