@@ -143,7 +143,6 @@ function draw() {
         displayedPrayers = random(prayers);
         timer=timer+random(10000,30000);
         print("New Prayer")
-        buttonDecline = createButton('ABLEHNEN');
     }
     if (millis() > timer2){
         displayedPrayers2 = random(prayers2);
@@ -166,7 +165,7 @@ function startGame() {
      }
 function declinePrayers() {
     displayedPrayers = ""
-    buttonDecline = 0;
+    buttonDecline.hide();
     print("Noo!")
 }
 function achievedPrayers() {
