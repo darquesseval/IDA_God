@@ -92,10 +92,10 @@ function draw() {
     text(prayersText, windowWidth/6*1, windowHeight/9*6.5);
 
     print("second: "+second() + " timer: "+timer);
+    textFont(LexendZettaRegular);
+    text(displayedPrayers, windowWidth/6*1, windowHeight/9*7.5);
     if (second() > timer){
         let displayedPrayers = random(prayers);
-        textFont(LexendZettaRegular);
-        text(displayedPrayers, windowWidth/6*1, windowHeight/9*7.5);
         timer=timer+random(20,30);
 
     }
