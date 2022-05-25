@@ -41,17 +41,15 @@ let bird;
 
 
 function preload(){
-    LexendZettaRegular = loadFont("https://beamish-scone-b8a64e.netlify.app/Fonts/Lexend_Zetta/static/LexendZetta-Regular.ttf")
-    LexendZettaBold = loadFont("https://beamish-scone-b8a64e.netlify.app/Fonts/Lexend_Zetta/static/LexendZetta-Bold.ttf")
-    intro1 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro11.png');
-    intro2 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro22.png');
-    intro3 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro33.png');
+    intro1 =document.querySelector("#intro2");
+    intro2 =document.querySelector("#intro2");
+    intro3 =document.querySelector("#intro3");    
     intro =[intro1,intro2, intro3];
     displayedIntro = intro[0];
     // bird = loadImage('./Images/bird.png');
 }
 
-
+//document.querySelector(“#intro3”).style.opacity = 0
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -71,7 +69,7 @@ function setup() {
    buttonDecline.style('background-color', 'transparent');
    buttonDecline.style('color', 'white');
    buttonDecline.style('font-size', '2vw');
-   buttonDecline.style('font-familiy', 'LexendZettaRegular, regular');
+   buttonDecline.style('font-familiy', 'Lexend Zetta, regular');
    buttonDecline.size(windowWidth/9, windowHeight/14)
    buttonDecline.mousePressed(declinePrayers)
 
@@ -80,7 +78,7 @@ function setup() {
    buttonAchieved.style('background-color', 'transparent');
    buttonAchieved.style('color', 'white');
    buttonAchieved.style('font-size', '2vw');
-   buttonAchieved.style('font-familiy', 'LexendZettaRegular, regular');
+   buttonAchieved.style('font-familiy', 'Lexend Zetta, regular');
    buttonAchieved.size(windowWidth/9, windowHeight/14)
    buttonAchieved.mousePressed(achievedPrayers)
 
@@ -89,7 +87,7 @@ function setup() {
    buttonDecline2.style('background-color', 'transparent');
    buttonDecline2.style('color', 'white');
    buttonDecline2.style('font-size', '2vw');
-   buttonDecline2.style('font-familiy', 'LexendZettaRegular, regular');
+   buttonDecline2.style('font-familiy', 'Lexend Zetta, regular');
    buttonDecline2.size(windowWidth/9, windowHeight/14)
    buttonDecline2.mousePressed(declinePrayers2)
 
@@ -98,7 +96,7 @@ function setup() {
    buttonAchieved2.style('background-color', 'transparent');
    buttonAchieved2.style('color', 'white');
    buttonAchieved2.style('font-size', '2vw');
-   buttonAchieved2.style('font-familiy', 'LexendZettaRegular, regular');
+   buttonAchieved2.style('font-familiy', 'Lexend Zetta, regular');
    buttonAchieved2.size(windowWidth/9, windowHeight/14)
    buttonAchieved2.mousePressed(achievedPrayers2)
 
