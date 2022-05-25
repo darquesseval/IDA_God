@@ -37,7 +37,6 @@ function preload(){
     intro3 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro33.png');
     intro =[intro1,intro2, intro3];
     displayedIntro = intro[0];
-    displayedPrayers = prayers [k];
     bird = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/bird.png');
 }
 
