@@ -1,5 +1,5 @@
 let button;
-let buttonDecline
+let buttonDecline;
 let LexendZettaRegular, LexendZettaBold;
 let i=0;
 let j=1;
@@ -18,7 +18,7 @@ let displayedIntro;
 let prayers = [
     "Errichtet ein Stockwerk mit nur \neiner einzigen Art Bausteinsorte",
     "Es dürfen keine zwei gleichen \nBausteine nebeneinander liegen",
-    "Ersetzt auf der unteren Plattform \nalle Bausteine durch: Würfel",
+    "Ersetzt auf der unteren Plattform \nalle Bausteine durch Würfel",
     "Erhöht die unterste Plattform um \nmindestens einen weiteren Bauustein."
 ]
 let displayedPrayers;
@@ -92,17 +92,25 @@ function draw() {
     textFont(LexendZettaBold);
     text(prayersText, windowWidth/6*1, windowHeight/9*6.5);
 
-
     if (millis() > timer){
         displayedPrayers = random(prayers);
         timer=timer+random(10000,30000);
         print("Prayer changed")
-
     }
     print("millis: "+millis() + " timer: "+timer);
     textFont(LexendZettaRegular);
     textAlign(LEFT);
-    text(displayedPrayers, windowWidth/6*1, windowHeight/9*7.5);
+    text(displayedPrayers, windowWidth/12*1, windowHeight/9*7.5);
+
+    buttonDecline = createButton('Ablehnen');
+    buttonDecline.position(windowWidth/12*6, windowHeight/18*15.2);
+    buttonDecline.style('background-color', 'transparent');
+    buttonDecline.style('color', 'white');
+    buttonDecline.style('font-size', '2vw');
+    buttonDecline.style('font-familiy', 'LexendZettaRegular, regular');
+    buttonDecline.size(windowWidth/9, windowHeight/14)
+    buttonDecline.mousePressed(declinePrayers)
+
 }
 
 function startGame() {
@@ -111,4 +119,6 @@ function startGame() {
     displayedIntro = intro[j];
     j=j+1;
      }
-
+function declinePrayers() {
+    displayedPrayers = prayers[0]
+}
