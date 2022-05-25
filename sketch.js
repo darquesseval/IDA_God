@@ -64,8 +64,8 @@ function draw() {
     // rect(i,30,20);
     displayedIntro.resize(windowWidth, 0);
     image(displayedIntro, 0, 0);
-    bird.resize(50, 0);
-    image(bird,i,50);
+    // bird.resize(50, 0);
+    // image(bird,i,50);
 
 
     if(i>=windowWidth){
@@ -99,7 +99,7 @@ function draw() {
 
     }
 
-
+}
 
 function startGame() {
     console.log("Game starts now!")
