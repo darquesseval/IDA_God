@@ -133,7 +133,7 @@ function declinePrayers() {
     displayedPrayers = prayers[0]
     print("Noo!")
 }
-function declinePrayers() {
-    achievedPrayers = prayers[0]
+function achievedPrayers() {
+    displayedPrayers = prayers[0]
     print("Yey!")
 }
