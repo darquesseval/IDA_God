@@ -16,10 +16,10 @@ let intro3;
 let intro = []
 let displayedIntro;
 let prayers = [
-    "Errichtet ein Stockwerk mit nur einer einzigen Art Bausteinsorte",
-    "Es dürfen keine zwei gleichen Bausteine nebeneinander liegen",
-    "Ersetzt auf der unteren Plattform alle Bausteine durch: Würfel",
-    "Erhöht die unterste Plattform um mindestens einen weiteren Bauustein."
+    "Errichtet ein Stockwerk mit nur \neiner einzigen Art Bausteinsorte",
+    "Es dürfen keine zwei gleichen \nBausteine nebeneinander liegen",
+    "Ersetzt auf der unteren Plattform \nalle Bausteine durch: Würfel",
+    "Erhöht die unterste Plattform um \nmindestens einen weiteren Bauustein."
 ]
 let displayedPrayers;
 let buttonText = "WEITER";
@@ -37,7 +37,7 @@ function preload(){
     intro3 = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/Intro33.png');
     intro =[intro1,intro2, intro3];
     displayedIntro = intro[0];
-    bird = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/bird.png');
+    // bird = loadImage('https://beamish-scone-b8a64e.netlify.app/Images/bird.png');
 }
 
 
@@ -70,16 +70,16 @@ function draw() {
     // image(bird,i,50);
 
 
-    if(i>=windowWidth){
-        direction = false;
-    } else if(i<=0){
-        direction = true;
-    }  
-    if(direction == true){
-        i+=5;
-    } else {
-        i-=5;
-    }  
+    // if(i>=windowWidth){
+    //     direction = false;
+    // } else if(i<=0){
+    //     direction = true;
+    // }  
+    // if(direction == true){
+    //     i+=5;
+    // } else {
+    //     i-=5;
+    // }  
    
     textAlign(CENTER);
     textSize(windowWidth/60)
@@ -92,17 +92,17 @@ function draw() {
     textFont(LexendZettaBold);
     text(prayersText, windowWidth/6*1, windowHeight/9*6.5);
 
-    print("millis: "+millis() + " timer: "+timer);
-    textFont(LexendZettaRegular);
-    textAlign(LEFT);
-    text(displayedPrayers, windowWidth/6*1, windowHeight/9*7.5);
+
     if (millis() > timer){
         displayedPrayers = random(prayers);
         timer=timer+random(10000,30000);
         print("Prayer changed")
 
     }
-
+    print("millis: "+millis() + " timer: "+timer);
+    textFont(LexendZettaRegular);
+    textAlign(LEFT);
+    text(displayedPrayers, windowWidth/6*1, windowHeight/9*7.5);
 }
 
 function startGame() {
@@ -111,3 +111,4 @@ function startGame() {
     displayedIntro = intro[j];
     j=j+1;
      }
+
