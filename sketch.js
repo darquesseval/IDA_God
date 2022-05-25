@@ -1,11 +1,14 @@
 let button;
 let buttonDecline;
+let buttonDecline2;
 let buttonAchieved;
+let buttonAchieved2;
 let LexendZettaRegular, LexendZettaBold;
 let i=0;
 let j=1;
 let k=1;
 let timer = 0;
+let timer2 = 0;
 let direction = true;
 // let intro = [
 //     "Willkommen zum Eignungstest für Gottheiten!\n\nTestet euer göttliches Geschick. Versucht zu zweit ein Monument für die Menschen im Dorf zu bauen.\n\nEine Person baut, während die andere schaut und Anweisungen gibt.",
@@ -23,7 +26,15 @@ let prayers = [
     "Ersetzt auf der unteren Plattform \nalle Bausteine durch Würfel",
     "Erhöht die unterste Plattform um \nmindestens einen weiteren Bauustein."
 ]
+let prayers2 = [
+    "",
+    "Oh bitte baut von nun an nur noch mit links, \ndenn ich habe eine Abneigung gegen rechte Baukunst.",
+    "Platziert auf der nächsten Plattform \nvon jeder Art Baustein mindestens einen.",
+    "Verwendet auf der jetztigen Etage nur \nzwei unterschiedliche Bausteinsoorten",
+    "Reduziert die obersten zwei Plattformen \ndamit es nur noch als eine ganz oben thront"
+]
 let displayedPrayers;
+let displayedPrayers2;
 let buttonText = "WEITER";
 let prayersText = "GEBETE";
 // let displayedText = intro[0];
@@ -58,7 +69,7 @@ function setup() {
    button.mousePressed(startGame);
 
    buttonDecline = createButton('ABLEHNEN');
-   buttonDecline.position(windowWidth/12*6, windowHeight/18*15.2);
+   buttonDecline.position(windowWidth/12*7, windowHeight/18*15.2);
    buttonDecline.style('background-color', 'transparent');
    buttonDecline.style('color', 'white');
    buttonDecline.style('font-size', '2vw');
@@ -66,7 +77,7 @@ function setup() {
    buttonDecline.size(windowWidth/9, windowHeight/14)
    buttonDecline.mousePressed(declinePrayers)
 
-   buttonAchieved = createButton('ABLEHNEN');
+   buttonAchieved = createButton('ERREICHT');
    buttonAchieved.position(windowWidth/12*8, windowHeight/18*15.2);
    buttonAchieved.style('background-color', 'transparent');
    buttonAchieved.style('color', 'white');
@@ -74,6 +85,27 @@ function setup() {
    buttonAchieved.style('font-familiy', 'LexendZettaRegular, regular');
    buttonAchieved.size(windowWidth/9, windowHeight/14)
    buttonAchieved.mousePressed(achievedPrayers)
+
+   buttonDecline2 = createButton('ABLEHNEN');
+   buttonDecline2.position(windowWidth/12*7, windowHeight/18*17);
+   buttonDecline2.style('background-color', 'transparent');
+   buttonDecline2.style('color', 'white');
+   buttonDecline2.style('font-size', '2vw');
+   buttonDecline2.style('font-familiy', 'LexendZettaRegular, regular');
+   buttonDecline2.size(windowWidth/9, windowHeight/14)
+   buttonDecline2.mousePressed(declinePrayers2)
+
+   buttonAchieved2 = createButton('ERREICHT');
+   buttonAchieved2.position(windowWidth/12*8, windowHeight/18*17);
+   buttonAchieved2.style('background-color', 'transparent');
+   buttonAchieved2.style('color', 'white');
+   buttonAchieved2.style('font-size', '2vw');
+   buttonAchieved2.style('font-familiy', 'LexendZettaRegular, regular');
+   buttonAchieved2.size(windowWidth/9, windowHeight/14)
+   buttonAchieved2.mousePressed(achievedPrayers2)
+
+   displayedPrayers = prayers[0]
+   displayedPrayers2 = prayers[0]
 }
 
 
@@ -114,17 +146,23 @@ function draw() {
     if (millis() > timer){
         displayedPrayers = random(prayers);
         timer=timer+random(10000,30000);
-        print("Prayer changed")
+        print("New Prayer")
     }
-    print("millis: "+millis() + " timer: "+timer);
+    if (millis() > timer2){
+        displayedPrayers2 = random(prayers2);
+        timer2=timer2+random(10000,30000);
+        print("New Prayer")
+    }
+    // print("millis: "+millis() + " timer: "+timer);
     textFont(LexendZettaRegular);
     textAlign(LEFT);
     text(displayedPrayers, windowWidth/12*1, windowHeight/9*7.5);
+    text(displayedPrayers2, windowWidth/12*1, windowHeight/9*8.5);
 
 }
 
 function startGame() {
-    console.log("Game starts now!")
+    console.log("Next Slide")
     // displayedText = intro[j]
     displayedIntro = intro[j];
     j=j+1;
@@ -134,6 +172,14 @@ function declinePrayers() {
     print("Noo!")
 }
 function achievedPrayers() {
-    displayedPrayers = prayers[0]
+    displayedPrayers = random(prayers);
+    print("Yey!")
+}
+function declinePrayers2() {
+    displayedPrayers2 = prayers2[0]
+    print("Noo!")
+}
+function achievedPrayers2() {
+    displayedPrayers2 = random(prayers2);
     print("Yey!")
 }
