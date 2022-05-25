@@ -3,6 +3,7 @@ let buttonDecline
 let LexendZettaRegular, LexendZettaBold;
 let i=0;
 let j=1;
+let k=1;
 let timer = 0;
 let direction = true;
 // let intro = [
