@@ -20,14 +20,12 @@ let intro3;
 let intro = []
 let displayedIntro;
 let prayers = [
-    "",
     "Errichtet ein Stockwerk mit nur \neiner einzigen Art Bausteinsorte",
     "Es dürfen keine zwei gleichen \nBausteine nebeneinander liegen",
     "Ersetzt auf der unteren Plattform \nalle Bausteine durch Würfel",
     "Erhöht die unterste Plattform um \nmindestens einen weiteren Bauustein."
 ]
 let prayers2 = [
-    "",
     "Oh bitte baut von nun an nur noch mit links, \ndenn ich habe eine Abneigung gegen rechte Baukunst.",
     "Platziert auf der nächsten Plattform \nvon jeder Art Baustein mindestens einen.",
     "Verwendet auf der jetztigen Etage nur \nzwei unterschiedliche Bausteinsoorten",
@@ -104,8 +102,6 @@ function setup() {
    buttonAchieved2.size(windowWidth/9, windowHeight/14)
    buttonAchieved2.mousePressed(achievedPrayers2)
 
-   displayedPrayers = prayers[0]
-   displayedPrayers2 = prayers[0]
 }
 
 
@@ -168,7 +164,8 @@ function startGame() {
     j=j+1;
      }
 function declinePrayers() {
-    displayedPrayers = prayers[0]
+    displayedPrayers = ""
+    
     print("Noo!")
 }
 function achievedPrayers() {
@@ -176,7 +173,7 @@ function achievedPrayers() {
     print("Yey!")
 }
 function declinePrayers2() {
-    displayedPrayers2 = prayers2[0]
+    displayedPrayers2 = ""
     print("Noo!")
 }
 function achievedPrayers2() {
