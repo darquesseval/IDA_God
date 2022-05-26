@@ -41,7 +41,7 @@ let bird;
 
 
 function preload(){
-    intro1 =document.querySelector(#intro1);
+    intro1 =document.querySelector("#intro1");
     intro2 =document.querySelector("#intro2");
     intro3 =document.querySelector("#intro3");    
     intro =[intro1,intro2, intro3];
