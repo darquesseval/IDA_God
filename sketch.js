@@ -38,12 +38,12 @@ let prayersText = "GEBETE";
 // let displayedText = intro[0];
 let bird;
 
-
+let started = false;
 
 function preload(){
-    intro1 =select("#intro1");
-    intro2 =select("#intro2");
-    intro3 =select("#intro3");    
+    intro1 =select("#start");
+    intro2 =select("#rebuild");
+    intro3 =select("#rules");    
     intro =[intro1,intro2, intro3];
     displayedIntro = intro[0];
     // bird = loadImage('./Images/bird.png');
@@ -106,7 +106,8 @@ function setup() {
 
 function draw() {
 
-    background(102, 143, 83)
+    background(230)
+    
     // fill(255,0,0);
     // rect(i,30,20);
     // bird.resize(50, 0);
@@ -161,10 +162,17 @@ function draw() {
 }
 
 function startGame() {
+ if(started == false) {
+        var element = document.getElementById("start");
+        element.classList.toggle("hidden");
+        var element = document.getElementById("rebuild");
+        element.classList.toggle("hidden");
+        started = true
+    }
     console.log("Next Slide")
     // displayedText = intro[j]
-    displayedIntro = intro[j];
-    j=j+1;
+    //displayedIntro = intro[j];
+    //j=j+1;
      }
 function declinePrayers() {
     displayedPrayers = ""
