@@ -31,6 +31,8 @@ let challenges = [
 ]
 let displayedChallenges = [];
 
+let IntroSlides = TRUE;
+
 
 function preload(){
     startSlide = document.querySelector("#intro1");
@@ -48,8 +50,6 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(102, 143, 83);
-
-  start();
 }
 
 
@@ -86,12 +86,25 @@ function draw() {
     buttonIgnore.size(windowWidth/9, windowHeight/14);
     buttonIgnore.hide();
 
+    buttonStart = createButton('Start');
+    buttonStart.position(windowWidth/20*17, windowHeight/20*14);
+    buttonStart.style('background-color', 'transparent');
+    buttonStart.style('color', 'white');
+    buttonStart.style('font-size', '2vw');
+    buttonStart.style('font-familiy', 'LexendZettaRegular, regular');
+    buttonStart.size(windowWidth/9, windowHeight/14);
+    buttonStart.mousePressed(rebuild);
+
     textFont(LexendZettaRegular);
     textAlign(LEFT);
     text(displayedChallenges[1], windowWidth/20*1, windowHeight/20*16);
     text(displayedChallenges[2], windowWidth/20*1, windowHeight/20*18);
 
-    displayedSlide = homeSlide
+    if (IntroSlides = TRUE){
+        displayedSlide = startSlide;
+    } else {
+        displayedSlide = homeSlide
+    }
 
     buttonArduino.mousePressed(houses)//if houses are moved
 
@@ -106,19 +119,11 @@ function draw() {
 }
 
 
-function start(){
-    displayedSlide = startSlide;
-
-    buttonStart = createButton('Start');
-    buttonStart.position(windowWidth/20*17, windowHeight/20*14);
-    buttonStart.style('background-color', 'transparent');
-    buttonStart.style('color', 'white');
-    buttonStart.style('font-size', '2vw');
-    buttonStart.style('font-familiy', 'LexendZettaRegular, regular');
-    buttonStart.size(windowWidth/9, windowHeight/14);
-    buttonStart.mousePressed(rebuild);
-}
+// function start(){
+//     buttonStart.mousePressed(rebuild);
+// }
 function rebuild() {
+    IntroSlides = FALSE;
     displayedSlide = rebuildSlide;
     buttonStart.hide();
 
