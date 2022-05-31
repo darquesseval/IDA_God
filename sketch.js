@@ -38,12 +38,12 @@ let prayersText = "GEBETE";
 // let displayedText = intro[0];
 let bird;
 
-
+let started = false;
 
 function preload(){
-    intro1 =document.querySelector("#intro1");
-    intro2 =document.querySelector("#intro2");
-    intro3 =document.querySelector("#intro3");    
+    intro1 =select("#start");
+    intro2 =select("#rebuild");
+    intro3 =select("#rules");    
     intro =[intro1,intro2, intro3];
     displayedIntro = intro[0];
     // bird = loadImage('./Images/bird.png');
@@ -106,11 +106,10 @@ function setup() {
 
 function draw() {
 
-    background(102, 143, 83)
+    background(230)
+    
     // fill(255,0,0);
     // rect(i,30,20);
-    displayedIntro.resize(windowWidth, 0);
-    image(displayedIntro, 0, 0);
     // bird.resize(50, 0);
     // image(bird,i,50);
 
@@ -134,7 +133,7 @@ function draw() {
     // textFont(LexendZettaBold);
     // text(buttonText, windowWidth/6*5, windowHeight/9*8);
 
-    textFont(LexendZettaBold);
+    textFont('Lexend Zetta, Bold');
     textAlign(LEFT);
     text(prayersText, windowWidth/20*1, windowHeight/20*15);
 
@@ -155,7 +154,7 @@ function draw() {
         print("New Prayer")
     }
     // print("millis: "+millis() + " timer: "+timer);
-    textFont(LexendZettaRegular);
+    textFont('Lexend Zetta, Bold');
     textAlign(LEFT);
     text(displayedPrayers, windowWidth/20*1, windowHeight/20*16);
     text(displayedPrayers2, windowWidth/20*1, windowHeight/20*18);
@@ -163,10 +162,17 @@ function draw() {
 }
 
 function startGame() {
+ if(started == false) {
+        var element = document.getElementById("start");
+        element.classList.toggle("hidden");
+        var element = document.getElementById("rebuild");
+        element.classList.toggle("hidden");
+        started = true
+    }
     console.log("Next Slide")
     // displayedText = intro[j]
-    displayedIntro = intro[j];
-    j=j+1;
+    //displayedIntro = intro[j];
+    //j=j+1;
      }
 function declinePrayers() {
     displayedPrayers = ""
