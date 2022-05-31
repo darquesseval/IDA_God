@@ -113,14 +113,14 @@ function draw() {
     buttonDone2.size(windowWidth/9, windowHeight/14);
     buttonDone2.hide();
 
-    buttonDone2 = createButton('Vollendet');
-    buttonDone2.position(windowWidth/20*16, windowHeight/20*12);
-    buttonDone2.style('background-color', 'transparent');
-    buttonDone2.style('color', 'white');
-    buttonDone2.style('font-size', '2vw');
-    buttonDone2.style('font-familiy', 'LexendZettaRegular, regular');
-    buttonDone2.size(windowWidth/9, windowHeight/14);
-    buttonDone2.hide();
+    buttonDone3 = createButton('Vollendet');
+    buttonDone3.position(windowWidth/20*16, windowHeight/20*12);
+    buttonDone3.style('background-color', 'transparent');
+    buttonDone3.style('color', 'white');
+    buttonDone3.style('font-size', '2vw');
+    buttonDone3.style('font-familiy', 'LexendZettaRegular, regular');
+    buttonDone3.size(windowWidth/9, windowHeight/14);
+    buttonDone3.hide();
 
     textFont(LexendZettaRegular);
     textAlign(LEFT);
@@ -138,6 +138,17 @@ function draw() {
     if (millis() > timer + q && displayedChallenges.lenght < 3){
         timer=timer+random(10000,30000);
         challenge();
+    }
+
+    if (displayedChallenges.lenght == 1){
+        buttonDone1.show();
+    } else if (displayedChallenges.lenght == 2){
+        buttonDone1.show();
+        buttonDone2.show();
+    } else {
+        buttonDone1.show();
+        buttonDone2.show();
+        buttonDone3.show();
     }
 
     if (millis() == 600000){
