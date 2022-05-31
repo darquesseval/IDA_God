@@ -95,6 +95,33 @@ function draw() {
     buttonStart.size(windowWidth/9, windowHeight/14);
     buttonStart.mousePressed(rebuild);
 
+    buttonDone1 = createButton('Vollendet');
+    buttonDone1.position(windowWidth/20*8, windowHeight/20*12);
+    buttonDone1.style('background-color', 'transparent');
+    buttonDone1.style('color', 'white');
+    buttonDone1.style('font-size', '2vw');
+    buttonDone1.style('font-familiy', 'LexendZettaRegular, regular');
+    buttonDone1.size(windowWidth/9, windowHeight/14);
+    buttonDone1.hide();
+
+    buttonDone2 = createButton('Vollendet');
+    buttonDone2.position(windowWidth/20*12, windowHeight/20*12);
+    buttonDone2.style('background-color', 'transparent');
+    buttonDone2.style('color', 'white');
+    buttonDone2.style('font-size', '2vw');
+    buttonDone2.style('font-familiy', 'LexendZettaRegular, regular');
+    buttonDone2.size(windowWidth/9, windowHeight/14);
+    buttonDone2.hide();
+
+    buttonDone2 = createButton('Vollendet');
+    buttonDone2.position(windowWidth/20*16, windowHeight/20*12);
+    buttonDone2.style('background-color', 'transparent');
+    buttonDone2.style('color', 'white');
+    buttonDone2.style('font-size', '2vw');
+    buttonDone2.style('font-familiy', 'LexendZettaRegular, regular');
+    buttonDone2.size(windowWidth/9, windowHeight/14);
+    buttonDone2.hide();
+
     textFont(LexendZettaRegular);
     textAlign(LEFT);
     text(displayedChallenges[1], windowWidth/20*1, windowHeight/20*16);
@@ -108,7 +135,7 @@ function draw() {
 
     buttonArduino.mousePressed(houses)//if houses are moved
 
-    if (millis() > timer + q){
+    if (millis() > timer + q && displayedChallenges.lenght < 3){
         timer=timer+random(10000,30000);
         challenge();
     }
@@ -141,8 +168,7 @@ function rules() {
     displayedSlide = rulesSlide;
     millis() = k;
     if (millis() = k + 20000){
-        millis() = q; // is it still defined in draw?
-        // start with draw
+        millis() = q;
     }
 }
 function challenge(){
@@ -158,12 +184,7 @@ function accept(){
     buttonAccept.hide();
     buttonIgnore.hide();
 
-    if (displayedChallenges.lenght < 2){
-        displayedChallenges.splice(0, 0, challenges[q]);
-    } else {
-        displayedChallenges.splice(1, 1);
-        displayedChallenges.splice(0, 0, challenges[q]);
-    }
+    displayedChallenges.splice(0, 0, challenges[q]);
     challenges.splice(q, 1);
     //play Yey! Sound
 }
