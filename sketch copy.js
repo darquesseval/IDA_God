@@ -10,8 +10,8 @@ let endSlide;
 let challengeSlide 
 let displayedSlide;
 
+let challengeCard0;
 let challengeCard1;
-let challengeCard2;
 
 let buttonStart;
 let buttonArduino;
