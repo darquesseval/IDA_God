@@ -41,9 +41,9 @@ let bird;
 
 
 function preload(){
-    intro1 =document.querySelector("#intro1");
-    intro2 =document.querySelector("#intro2");
-    intro3 =document.querySelector("#intro3");    
+    intro1 =select("#intro1");
+    intro2 =select("#intro2");
+    intro3 =select("#intro3");    
     intro =[intro1,intro2, intro3];
     displayedIntro = intro[0];
     // bird = loadImage('./Images/bird.png');
@@ -109,8 +109,6 @@ function draw() {
     background(102, 143, 83)
     // fill(255,0,0);
     // rect(i,30,20);
-    displayedIntro.resize(windowWidth, 0);
-    image(displayedIntro, 0, 0);
     // bird.resize(50, 0);
     // image(bird,i,50);
 
@@ -134,7 +132,7 @@ function draw() {
     // textFont(LexendZettaBold);
     // text(buttonText, windowWidth/6*5, windowHeight/9*8);
 
-    textFont(LexendZettaBold);
+    textFont('Lexend Zetta, Bold');
     textAlign(LEFT);
     text(prayersText, windowWidth/20*1, windowHeight/20*15);
 
@@ -155,7 +153,7 @@ function draw() {
         print("New Prayer")
     }
     // print("millis: "+millis() + " timer: "+timer);
-    textFont(LexendZettaRegular);
+    textFont('Lexend Zetta, Bold');
     textAlign(LEFT);
     text(displayedPrayers, windowWidth/20*1, windowHeight/20*16);
     text(displayedPrayers2, windowWidth/20*1, windowHeight/20*18);
