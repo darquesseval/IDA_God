@@ -31,6 +31,8 @@ let challenges = [
 ]
 let displayedChallenges = [];
 
+let IntroSlides = TRUE;
+
 
 function preload(){
     startSlide = document.querySelector("#intro1");
@@ -48,8 +50,6 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(102, 143, 83);
-
-  start();
 }
 
 
@@ -86,16 +86,56 @@ function draw() {
     buttonIgnore.size(windowWidth/9, windowHeight/14);
     buttonIgnore.hide();
 
+    buttonStart = createButton('Start');
+    buttonStart.position(windowWidth/20*17, windowHeight/20*14);
+    buttonStart.style('background-color', 'transparent');
+    buttonStart.style('color', 'white');
+    buttonStart.style('font-size', '2vw');
+    buttonStart.style('font-familiy', 'LexendZettaRegular, regular');
+    buttonStart.size(windowWidth/9, windowHeight/14);
+    buttonStart.mousePressed(rebuild);
+
+    buttonDone1 = createButton('Vollendet');
+    buttonDone1.position(windowWidth/20*8, windowHeight/20*12);
+    buttonDone1.style('background-color', 'transparent');
+    buttonDone1.style('color', 'white');
+    buttonDone1.style('font-size', '2vw');
+    buttonDone1.style('font-familiy', 'LexendZettaRegular, regular');
+    buttonDone1.size(windowWidth/9, windowHeight/14);
+    buttonDone1.hide();
+
+    buttonDone2 = createButton('Vollendet');
+    buttonDone2.position(windowWidth/20*12, windowHeight/20*12);
+    buttonDone2.style('background-color', 'transparent');
+    buttonDone2.style('color', 'white');
+    buttonDone2.style('font-size', '2vw');
+    buttonDone2.style('font-familiy', 'LexendZettaRegular, regular');
+    buttonDone2.size(windowWidth/9, windowHeight/14);
+    buttonDone2.hide();
+
+    buttonDone2 = createButton('Vollendet');
+    buttonDone2.position(windowWidth/20*16, windowHeight/20*12);
+    buttonDone2.style('background-color', 'transparent');
+    buttonDone2.style('color', 'white');
+    buttonDone2.style('font-size', '2vw');
+    buttonDone2.style('font-familiy', 'LexendZettaRegular, regular');
+    buttonDone2.size(windowWidth/9, windowHeight/14);
+    buttonDone2.hide();
+
     textFont(LexendZettaRegular);
     textAlign(LEFT);
     text(displayedChallenges[1], windowWidth/20*1, windowHeight/20*16);
     text(displayedChallenges[2], windowWidth/20*1, windowHeight/20*18);
 
-    displayedSlide = homeSlide
+    if (IntroSlides = TRUE){
+        displayedSlide = startSlide;
+    } else {
+        displayedSlide = homeSlide
+    }
 
     buttonArduino.mousePressed(houses)//if houses are moved
 
-    if (millis() > timer + q){
+    if (millis() > timer + q && displayedChallenges.lenght < 3){
         timer=timer+random(10000,30000);
         challenge();
     }
@@ -106,19 +146,11 @@ function draw() {
 }
 
 
-function start(){
-    displayedSlide = startSlide;
-
-    buttonStart = createButton('Start');
-    buttonStart.position(windowWidth/20*17, windowHeight/20*14);
-    buttonStart.style('background-color', 'transparent');
-    buttonStart.style('color', 'white');
-    buttonStart.style('font-size', '2vw');
-    buttonStart.style('font-familiy', 'LexendZettaRegular, regular');
-    buttonStart.size(windowWidth/9, windowHeight/14);
-    buttonStart.mousePressed(rebuild);
-}
+// function start(){
+//     buttonStart.mousePressed(rebuild);
+// }
 function rebuild() {
+    IntroSlides = FALSE;
     displayedSlide = rebuildSlide;
     buttonStart.hide();
 
@@ -136,8 +168,7 @@ function rules() {
     displayedSlide = rulesSlide;
     millis() = k;
     if (millis() = k + 20000){
-        millis() = q; // is it still defined in draw?
-        // start with draw
+        millis() = q;
     }
 }
 function challenge(){
@@ -153,12 +184,7 @@ function accept(){
     buttonAccept.hide();
     buttonIgnore.hide();
 
-    if (displayedChallenges.lenght < 2){
-        displayedChallenges.splice(0, 0, challenges[q]);
-    } else {
-        displayedChallenges.splice(1, 1);
-        displayedChallenges.splice(0, 0, challenges[q]);
-    }
+    displayedChallenges.splice(0, 0, challenges[q]);
     challenges.splice(q, 1);
     //play Yey! Sound
 }
