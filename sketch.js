@@ -40,7 +40,7 @@ function preload(){
     challengeCard1 = select("#challenge1"); 
     challengeCard2 = select("#challenge2"); 
     challengeCard3 = select("#challenge3"); 
-    challenges = [challengeCard0, challengeCard1, challengeCard2, hallengeCard3]
+    challenges = [challengeCard0, challengeCard1, challengeCard2, challengeCard3]
 }
 
 
