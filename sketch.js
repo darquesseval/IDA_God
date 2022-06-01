@@ -1,196 +1,241 @@
-let button;
-let buttonDecline;
-let buttonDecline2;
-let buttonAchieved;
-let buttonAchieved2;
-let LexendZettaRegular, LexendZettaBold;
-let i=0;
-let j=1;
-let k=1;
-let timer = 0;
-let timer2 = 0;
-let direction = true;
-// let intro = [
-//     "Willkommen zum Eignungstest für Gottheiten!\n\nTestet euer göttliches Geschick. Versucht zu zweit ein Monument für die Menschen im Dorf zu bauen.\n\nEine Person baut, während die andere schaut und Anweisungen gibt.",
-//     "Bevor ihr jedoch mit dem Bau beginnen könnt, müsst ihr das von einem Erdbeben verwüstete Dorf aufräumen.\n\nStellt dazu die umgefallenen Gebäude abwechslungsweise wieder auf. Die Lichter zeigen euch ob diese korrekt stehen.\n\nSprecht euch ab wer mit bauen beginnt.",
-//     "Ihr habt nun einen Tag Zeit euer Monument auf dem Baufeld in der Mitte des Dorfes zu bauen.\n\nPro Spielzug/Spieleinsatz dürft ihr vier Elemente berühren/verschieben. Danach wird gewechselt.\n\nGestapelte Elemente dürfen miteinander verschoben werden, sofern nur ein Element berührt wird.\n\nFangt nun an zu bauen!"];
-let intro1;
-let intro2;
-let intro3;
-let intro = []
-let displayedIntro;
-let prayers = [
-    "Errichtet ein Stockwerk mit nur \neiner einzigen Art Bausteinsorte",
-    "Es dürfen keine zwei gleichen \nBausteine nebeneinander liegen",
-    "Ersetzt auf der unteren Plattform \nalle Bausteine durch Würfel",
-    "Erhöht die unterste Plattform um \nmindestens einen weiteren Bauustein."
-]
-let prayers2 = [
-    "Oh bitte baut von nun an nur noch mit links, \ndenn ich habe eine Abneigung gegen rechte Baukunst.",
-    "Platziert auf der nächsten Plattform \nvon jeder Art Baustein mindestens einen.",
-    "Verwendet auf der jetztigen Etage nur \nzwei unterschiedliche Bausteinsoorten",
-    "Reduziert die obersten zwei Plattformen \ndamit es nur noch als eine ganz oben thront"
-]
-let displayedPrayers;
-let displayedPrayers2;
-let buttonText = "WEITER";
-let prayersText = "GEBETE";
-// let displayedText = intro[0];
-let bird;
+
+let LexendZettaRegular, LexendZettaBold;//???
+
+let startSlide;
+let rebuildSlide;
+let rulesSlide;
+let homeSlide;
+let housesSlide;
+let endSlide;
+let challengeSlide 
+let displayedSlide;
+
+let challengeCard0;
+let challengeCard1;
+
+let buttonStart;
+let buttonArduino;
+let buttonArduino1;
+
+let timer = 6000;
+let q = 0;
+let k = 0;
+
+let challenges = [];
+let displayedChallenges = [];
 
 let started = false;
+let dayStarted = false;
+let dayOver = false;
+let buildingsReady = false;
+
 
 function preload(){
-    intro1 =select("#start");
-    intro2 =select("#rebuild");
-    intro3 =select("#rules");    
-    intro =[intro1,intro2, intro3];
-    displayedIntro = intro[0];
-    // bird = loadImage('./Images/bird.png');
+    startSlide = select("#start");
+    rebuildSlide = select("#rebuild");
+    rulesSlide = select("#rules"); 
+    homeSlide = select("#home"); 
+    challengeSlide = select("#challenge"); 
+    housesSlide = select("#houses"); 
+    endSlide = select("#end"); 
+
+    challengeCard0 = select("#challenge0"); 
+    challengeCard1 = select("#challenge1"); 
+    //challengeCard2, etc.
+    challenges = [challengeCard0, challengeCard1]
 }
 
-//document.querySelector(“#intro3”).style.opacity = 0
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(102, 143, 83);
 
-  button = createButton('WEITER');
-  button.position(windowWidth/20*17, windowHeight/20*14);
-  button.style('background-color', 'transparent');
-  button.style('color', 'white');
-  button.style('font-size', '2vw');
-  button.style('font-familiy', 'LexendZettaRegular, regular');
-  button.size(windowWidth/9, windowHeight/14)
-   button.mousePressed(startGame);
 
-   buttonDecline = createButton('ABLEHNEN');
-   buttonDecline.position(windowWidth/20*12, windowHeight/20*15.5);
-   buttonDecline.style('background-color', 'transparent');
-   buttonDecline.style('color', 'white');
-   buttonDecline.style('font-size', '2vw');
-   buttonDecline.style('font-familiy', 'Lexend Zetta, regular');
-   buttonDecline.size(windowWidth/9, windowHeight/14)
-   buttonDecline.mousePressed(declinePrayers)
+  buttonArduino = createButton('Häuser');
+  buttonArduino.position(windowWidth/20*17, windowHeight/20*2);
+  buttonArduino.style('background-color', 'transparent');
+  buttonArduino.style('color', 'white');
+  buttonArduino.style('font-size', '2vw');
+  buttonArduino.style('font-familiy', 'LexendZettaRegular, regular');
+  buttonArduino.size(windowWidth/9, windowHeight/14);
 
-   buttonAchieved = createButton('ERREICHT');
-   buttonAchieved.position(windowWidth/20*14.5, windowHeight/20*15.5);
-   buttonAchieved.style('background-color', 'transparent');
-   buttonAchieved.style('color', 'white');
-   buttonAchieved.style('font-size', '2vw');
-   buttonAchieved.style('font-familiy', 'Lexend Zetta, regular');
-   buttonAchieved.size(windowWidth/9, windowHeight/14)
-   buttonAchieved.mousePressed(achievedPrayers)
+  buttonArduino1 = createButton('Häuser aufgestellt');
+  buttonArduino1.position(windowWidth/20*13, windowHeight/20*2);
+  buttonArduino1.style('background-color', 'transparent');
+  buttonArduino1.style('color', 'white');
+  buttonArduino1.style('font-size', '2vw');
+  buttonArduino1.style('font-familiy', 'LexendZettaRegular, regular');
+  buttonArduino1.size(windowWidth/9, windowHeight/14);
+  buttonArduino1.hide();
 
-   buttonDecline2 = createButton('ABLEHNEN');
-   buttonDecline2.position(windowWidth/20*12, windowHeight/20*17.5);
-   buttonDecline2.style('background-color', 'transparent');
-   buttonDecline2.style('color', 'white');
-   buttonDecline2.style('font-size', '2vw');
-   buttonDecline2.style('font-familiy', 'Lexend Zetta, regular');
-   buttonDecline2.size(windowWidth/9, windowHeight/14)
-   buttonDecline2.mousePressed(declinePrayers2)
+  buttonAccept = createButton('Akzeprieren');
+  buttonAccept.position(windowWidth/20*8, windowHeight/20*17);
+  buttonAccept.style('background-color', 'transparent');
+  buttonAccept.style('color', 'white');
+  buttonAccept.style('font-size', '2vw');
+  buttonAccept.style('font-familiy', 'LexendZettaRegular, regular');
+  buttonAccept.size(windowWidth/9, windowHeight/14);
+  buttonAccept.hide();
 
-   buttonAchieved2 = createButton('ERREICHT');
-   buttonAchieved2.position(windowWidth/20*14.5, windowHeight/20*17.5);
-   buttonAchieved2.style('background-color', 'transparent');
-   buttonAchieved2.style('color', 'white');
-   buttonAchieved2.style('font-size', '2vw');
-   buttonAchieved2.style('font-familiy', 'Lexend Zetta, regular');
-   buttonAchieved2.size(windowWidth/9, windowHeight/14)
-   buttonAchieved2.mousePressed(achievedPrayers2)
+  buttonIgnore = createButton('Ignorieren');
+  buttonIgnore.position(windowWidth/20*17, windowHeight/20*17);
+  buttonIgnore.style('background-color', 'transparent');
+  buttonIgnore.style('color', 'white');
+  buttonIgnore.style('font-size', '2vw');
+  buttonIgnore.style('font-familiy', 'LexendZettaRegular, regular');
+  buttonIgnore.size(windowWidth/9, windowHeight/14);
+  buttonIgnore.hide();
 
+  buttonStart = createButton('Start');
+  buttonStart.position(windowWidth/20*17, windowHeight/20*14);
+  buttonStart.style('background-color', 'transparent');
+  buttonStart.style('color', 'white');
+  buttonStart.style('font-size', '2vw');
+  buttonStart.style('font-familiy', 'LexendZettaRegular, regular');
+  buttonStart.size(windowWidth/9, windowHeight/14);
+
+  buttonDone1 = createButton('Vollendet');
+  buttonDone1.position(windowWidth/20*8, windowHeight/20*12);
+  buttonDone1.style('background-color', 'transparent');
+  buttonDone1.style('color', 'white');
+  buttonDone1.style('font-size', '2vw');
+  buttonDone1.style('font-familiy', 'LexendZettaRegular, regular');
+  buttonDone1.size(windowWidth/9, windowHeight/14);
+  buttonDone1.hide();
+
+  buttonDone2 = createButton('Vollendet');
+  buttonDone2.position(windowWidth/20*12, windowHeight/20*12);
+  buttonDone2.style('background-color', 'transparent');
+  buttonDone2.style('color', 'white');
+  buttonDone2.style('font-size', '2vw');
+  buttonDone2.style('font-familiy', 'LexendZettaRegular, regular');
+  buttonDone2.size(windowWidth/9, windowHeight/14);
+  buttonDone2.hide();
+
+  buttonDone3 = createButton('Vollendet');
+  buttonDone3.position(windowWidth/20*16, windowHeight/20*12);
+  buttonDone3.style('background-color', 'transparent');
+  buttonDone3.style('color', 'white');
+  buttonDone3.style('font-size', '2vw');
+  buttonDone3.style('font-familiy', 'LexendZettaRegular, regular');
+  buttonDone3.size(windowWidth/9, windowHeight/14);
+  buttonDone3.hide();
+
+  buttonStart.mousePressed(rebuild);
+  buttonArduino1.mousePressed(rules); // When all houses are rebuild -> function(rules)
+  buttonArduino.mousePressed(houses); //if houses are moved
+  buttonAccept.mousePressed(accept);
+  buttonIgnore.mousePressed(ignore);
 }
 
 
 
 function draw() {
 
-    background(230)
-    
-    // fill(255,0,0);
-    // rect(i,30,20);
-    // bird.resize(50, 0);
-    // image(bird,i,50);
+    background(230);
 
-
-    // if(i>=windowWidth){
-    //     direction = false;
-    // } else if(i<=0){
-    //     direction = true;
-    // }  
-    // if(direction == true){
-    //     i+=5;
-    // } else {
-    //     i-=5;
-    // }  
-   
-    textAlign(CENTER);
-    textSize(windowWidth/60)
-    fill(255)
-    // text(displayedText, windowWidth/2, 100);
-    
-    // textFont(LexendZettaBold);
-    // text(buttonText, windowWidth/6*5, windowHeight/9*8);
-
-    textFont('Lexend Zetta, Bold');
-    textAlign(LEFT);
-    text(prayersText, windowWidth/20*1, windowHeight/20*15);
-
-    if (millis() > timer){
-        let q = random(0, prayers.lenght-1)
-        displayedPrayers = prayers[q];
-        prayers.splice(q, 1)
-        timer=timer+random(10000,30000);
-        buttonDecline.show();
-        buttonAchieved.show();
-        print("New Prayer")
+    if (k != 0 && millis() > k + 5000 && dayStarted == false){
+        k = millis();
+        rulesSlide.toggleClass("hidden");
+        homeSlide.toggleClass("hidden");
+        dayStarted = true;
     }
-    if (millis() > timer2){
-        displayedPrayers2 = random(prayers2);
-        timer2=timer2+random(10000,30000);
-        buttonDecline2.show();
-        buttonAchieved2.show();
-        print("New Prayer")
-    }
-    // print("millis: "+millis() + " timer: "+timer);
-    textFont('Lexend Zetta, Bold');
-    textAlign(LEFT);
-    text(displayedPrayers, windowWidth/20*1, windowHeight/20*16);
-    text(displayedPrayers2, windowWidth/20*1, windowHeight/20*18);
 
+    if (k != 0 && millis() > timer + k && displayedChallenges.length != 3){
+        timer = timer + random(5000,10000);
+        console.log("new challenge");
+        challenge();
+    }
+
+    if (displayedChallenges.length == 1){
+        buttonDone1.show();
+    } else if (displayedChallenges.length == 2){
+        buttonDone1.show();
+        buttonDone2.show();
+    } else if(displayedChallenges.length == 3){
+        buttonDone1.show();
+        buttonDone2.show();
+        buttonDone3.show();
+    }
+
+    if (millis() > k + 60000 && dayOver == false){
+        end();
+        dayOver = true;
+    }
 }
 
-function startGame() {
- if(started == false) {
-        var element = document.getElementById("start");
-        element.classList.toggle("hidden");
-        var element = document.getElementById("rebuild");
-        element.classList.toggle("hidden");
-        started = true
+
+// function start(){
+//     buttonStart.mousePressed(rebuild);
+// }
+function rebuild() {
+    if (started == false){
+        startSlide.toggleClass("hidden");
+        rebuildSlide.toggleClass("hidden");
+        buttonStart.hide();
+        buttonArduino1.show();
+        started = true;
     }
-    console.log("Next Slide")
-    // displayedText = intro[j]
-    //displayedIntro = intro[j];
-    //j=j+1;
-     }
-function declinePrayers() {
-    displayedPrayers = ""
-    buttonDecline.hide();
-    buttonAchieved.hide();
-    print("Noo!")
 }
-function achievedPrayers() {
-    displayedPrayers = random(prayers);
-    print("Yey!")
+function rules() {
+    rebuildSlide.toggleClass("hidden");
+    rulesSlide.toggleClass("hidden");
+    buttonArduino1.hide()
+    k = millis();
 }
-function declinePrayers2() {
-    displayedPrayers2 = ""
-    buttonDecline2.hide();
-    buttonAchieved2.hide();
-    print("Noo!")
+function challenge(){ //bugs: when this function is still running while new challenge is comming; cant press häuser butten when this function is running
+    q = int(random(0, challenges.length));
+    console.log(q);
+    console.log(challenges.length);
+    homeSlide.toggleClass("hidden");
+    challengeSlide.toggleClass("hidden");
+
+    challenges[q].removeClass("hidden");
+    challenges[q].addClass("pos1");
+
+    buttonAccept.show();
+    buttonIgnore.show();
 }
-function achievedPrayers2() {
-    displayedPrayers2 = random(prayers2);
-    print("Yey!")
+function accept(){
+    challengeSlide.toggleClass("hidden");
+    homeSlide.toggleClass("hidden");
+    challenges[q].removeClass("pos1");
+    challenges[q].addClass("hidden");
+    buttonAccept.hide();
+    buttonIgnore.hide();
+
+    displayedChallenges.splice(0, 0, challenges[q]);
+    challenges.splice(q, 1);
+
+     displayedChallenge[0].addClass("pos1");
+     displayedChallenge[1].addClass("pos2");
+     displayedChallenge[2].addClass("pos3");
+
+    //play Yey! Sound
+}
+function ignore(){
+    var element = document.getElementById("challenge");
+    element.classList.toggle("hidden");
+    var element = document.getElementById("home");
+    element.classList.toggle("hidden");
+    buttonAccept.hide();
+    buttonIgnore.hide();
+    challenges.splice(q, 1);
+    //play Nooo! Sound
+}
+function houses(){
+    homeSlide.toggleClass("hidden");
+    housesSlide.toggleClass("hidden");
+    //play alarm sound, stop sound if houses are ok and show homeSlide
+    buttonArduino.mousePressed(houses2)
+}
+function houses2(){
+    housesSlide.toggleClass("hidden");
+    homeSlide.toggleClass("hidden");
+}
+function end(){
+    homeSlide.toggleClass("hidden"); // what if its not on homeSlide?
+    endSlide.toggleClass("hidden");
+    //making arduino crash the tower
+    // stop new challenges
 }
