@@ -9,7 +9,8 @@ ESP8266WebServer Webserver(80);
 const char* ssid = "Nokia 6.1";
 const char* password = "lalala001";
 
-int data;
+bool started = false;
+bool buildingsReady = false;
  
 String HTMLpage = "";
  
@@ -20,7 +21,8 @@ String HTMLpage = "";
 #define SLAVE_ADDR 9
  
 // Define Slave answer size
-#define ANSWERSIZE 5
+#define READYSIZE 3
+#define FALLENSIZE 4
  
 void setup() {
     // Initialize I2C communications as Master
@@ -47,38 +49,24 @@ void setup() {
   if (MDNS.begin("esp8266", WiFi.localIP())) {
     Serial.println("MDNS responder started");
   }
- 
-  Webserver.on("/", [](){
-    Webserver.send(200, "text/html", HTMLpage);
+
+   Webserver.on("/", [](){
   });
-  Webserver.on("/ledON", [](){
-    Webserver.send(200, "text/html", HTMLpage+"<p>LED is ON</p>");
-    data = 1;
+  Webserver.on("/started", [](){
+    started = true;
     // Write a charatre to the Slave
     Wire.beginTransmission(SLAVE_ADDR);
     delay(1000);
-    Wire.write(data);
+    Wire.write(started);
     Wire.endTransmission();
     Serial.println("Write data to slave");
   });
-  Webserver.on("/ledOFF", [](){
-    Webserver.send(200, "text/html", HTMLpage+"<p>LED is OFF</p>");
-    data = 0;
-    // Write a charatre to the Slave
-    Wire.beginTransmission(SLAVE_ADDR);
-    delay(1000); 
-    Wire.write(data);
-    Wire.endTransmission();
-    Serial.println("Write data to slave");
-  });
+   
+ 
  
   Webserver.begin();
   Serial.println("HTTP Webserver started");
 
-  
-  // Setup serial monitor
-//  Serial.begin(9600);
-  Serial.println("I2C Master Demonstration");
 }
  
 void loop() {
@@ -90,15 +78,22 @@ void loop() {
   
   // Read response from Slave
   // Read back 5 characters
-  Wire.requestFrom(SLAVE_ADDR,ANSWERSIZE);
-  
+  Wire.requestFrom(SLAVE_ADDR, READYSIZE);
+
   // Add characters to string
-  String response = "";
+  String bReady = "";
   while (Wire.available()) {
       char b = Wire.read();
-      response += b;
+      bReady += b;
   } 
-  
+
+    Wire.requestFrom(SLAVE_ADDR, FALLENSIZE);
+
+    String bFallen = "";
+  while (Wire.available()) {
+      char a = Wire.read();
+      bFallen += a;
+  } 
   // Print to Serial Monitor
-  Serial.println(response);
+  Serial.println(bReady);
 }
