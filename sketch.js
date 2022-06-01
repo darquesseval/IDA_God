@@ -39,8 +39,8 @@ function preload(){
     challengeCard0 = select("#challenge0"); 
     challengeCard1 = select("#challenge1"); 
     challengeCard2 = select("#challenge2"); 
-    //challengeCard2, etc.
-    challenges = [challengeCard0, challengeCard1, challengeCard2]
+    challengeCard3 = select("#challenge3"); 
+    challenges = [challengeCard0, challengeCard1, challengeCard2, hallengeCard3]
 }
 
 
@@ -203,6 +203,7 @@ function challenge(){ //bugs: when this function is still running while new chal
     q = int(random(0, challenges.length));
     console.log(q);
     console.log(challenges.length);
+
     homeSlide.toggleClass("hidden");
     if (displayedChallenges.length == 1){
         displayedChallenges[0].addClass("hidden")
@@ -263,16 +264,6 @@ function done3(){
 }
 function houses(){
     homeSlide.toggleClass("hidden");
-    if (displayedChallenges.length == 1){
-        displayedChallenges[0].addClass("hidden")
-    } else if (displayedChallenges.length == 2){
-        displayedChallenges[0].addClass("hidden")
-        displayedChallenges[1].addClass("hidden")
-    } else if (displayedChallenges.length == 3){
-        displayedChallenges[0].addClass("hidden")
-        displayedChallenges[1].addClass("hidden")
-        displayedChallenges[2].addClass("hidden")
-    }
     housesSlide.toggleClass("hidden");
     //play alarm sound, stop sound if houses are ok and show homeSlide
     buttonArduino.mousePressed(houses2)
