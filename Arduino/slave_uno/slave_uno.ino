@@ -62,6 +62,22 @@ bool buildingsReady = false;
 
 bool started = false;
 
+bool myTimer(void *) {
+  i++;
+  strip.setPixelColor(i - 2, strip.Color(0, 0, 0, 0));
+  strip.setPixelColor(i - 1, strip.Color(30, 200, 0, 255));
+  strip.setPixelColor(i, strip.Color(100, 200, 0, 255));
+  strip.setPixelColor(i + 1, strip.Color(30, 200, 0, 255));
+  strip.show(); // This sends the updated pixel color to the hardware.
+
+//  if (i > NUMPIXELS) {
+//    
+//  }
+return true;
+//and then start motor here
+
+}
+
 void setup() {
   timer.every(1000, myTimer);
 
@@ -79,9 +95,7 @@ void setup() {
 
   // Initialize I2C communications as Slave
   Wire.begin(SLAVE_ADDR);
-
-
-
+Wire.onReceive(receiveEvent);
   // Setup Serial Monitor
   Serial.begin(9600);
   Serial.println("I2C Slave Demonstration");
@@ -120,9 +134,9 @@ void checkBuildings() {
   } else if (b1read == 0) {
     digitalWrite(LEDred1, HIGH);
   }
-  Serial.println(b1read);
+ 
 
-  byte bReadyArray[READYSIZE];
+      byte bReadyArray[READYSIZE];
   byte bFallenArray[FALLENSIZE];
 
   // Format answer as array
@@ -133,28 +147,11 @@ void checkBuildings() {
   for (byte i = 0; i < FALLENSIZE; i++) {
     bFallenArray[i] = (byte)bFallen.charAt(i);
   }
-  if (b1read == 1 && buildingsReady == false) {
+    if (b1read == 1 && buildingsReady == false) {
     Wire.write(bReadyArray, sizeof(bReadyArray));
   }
 
   if (b1read == 0 && buildingsReady == true) {
     Wire.write(bFallenArray, sizeof(bFallenArray));
   }
-}
-
-bool myTimer(void *) {
-  i++;
-  // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-  strip.setPixelColor(i - 2, strip.Color(0, 0, 0, 0));
-  strip.setPixelColor(i - 1, strip.Color(30, 200, 0, 255));
-  strip.setPixelColor(i, strip.Color(100, 200, 0, 255));
-  strip.setPixelColor(i + 1, strip.Color(30, 200, 0, 255));
-  strip.show(); // This sends the updated pixel color to the hardware.
-
-  if (i > NUMPIXELS) {
-    
-  }
-return true;
-//and then start motor here
-
 }

@@ -29,7 +29,7 @@ void setup() {
   Wire.begin();
 
      //HTMLpage += "<head><title>Webserver Tutorial</title></head><h3>ESP8266 Webserver Demo (Toggle LED)</h3><p>LED <a href=\"ledON\"><button>ON</button></a>&nbsp;<a href=\"ledOFF\"><button>OFF</button></a></p>";
-      HTMLpage += "<!doctype html><html>  <head>    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://beamish-scone-b8a64e.netlify.app/style.css\">    <link rel=\"shortcut icon\" href=\"#\">       <script src=\"https://beamish-scone-b8a64e.netlify.app/Libraries/p5/p5.js\"></script>    <script src=\"https://beamish-scone-b8a64e.netlify.app/sketch.js\"></script>     <title>Polypolis</title>  </head>  <body>         <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/Intro1.png\" id=\"intro1\" class=\"hidden\">    <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/Intro2.png\" id=\"intro2\" class=\"hidden\">    <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/Intro3.png\" id=\"intro3\" class=\"hidden\">    <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/Intro4.png\" id=\"intro4\" class=\"hidden\">    <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/Intro5.png\" id=\"intro5\" class=\"hidden\">                 <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>    <link href=\"https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@400;700&display=swap\" rel=\"stylesheet\">   </body></html>";
+     HTMLpage += "<!doctype html><html>  <head>    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://beamish-scone-b8a64e.netlify.app/style.css\">    <link rel=\"shortcut icon\" href=\"#\">    <script src=\"https://beamish-scone-b8a64e.netlify.app/Libraries/p5/p5.js\"></script>    <script src=\"https://beamish-scone-b8a64e.netlify.app/sketch.js\"></script>    <title>Polypolis</title>  </head>  <body>    <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/startSlide.png\" id=\"start\">    <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/rebuildSlide.png\" id=\"rebuild\" class=\"hidden\">    <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/rulesSlide.png\" id=\"rules\" class=\"hidden\">    <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/homeSlide.png\" id=\"home\" class=\"hidden\">    <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/housesSlide.png\" id=\"houses\" class=\"hidden\">    <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/endSlide.png\" id=\"end\" class=\"hidden\">    <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/challengeSlide.png\" id=\"challenge\" class=\"hidden\">    <div class=\"container\">      <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/challengeCard0.png\" id=\"challenge0\" class=\"hidden\">      <img src=\"https://beamish-scone-b8a64e.netlify.app/Images/challengeCard1.png\" id=\"challenge1\" class=\"hidden\">    </div>        <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>    <link href=\"https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@400;700&display=swap\" rel=\"stylesheet\">   </body></html>";
 
   Serial.begin(115200);
   WiFi.begin(ssid, password);
@@ -50,7 +50,9 @@ void setup() {
     Serial.println("MDNS responder started");
   }
 
-   Webserver.on("/", [](){
+
+  Webserver.on("/", [](){
+    Webserver.send(200, "text/html", HTMLpage);
   });
   Webserver.on("/started", [](){
     started = true;
@@ -63,7 +65,6 @@ void setup() {
   });
    
  
- 
   Webserver.begin();
   Serial.println("HTTP Webserver started");
 
@@ -72,28 +73,23 @@ void setup() {
 void loop() {
 
   Webserver.handleClient();
-
-     
-  Serial.println("Receive data");
   
-  // Read response from Slave
-  // Read back 5 characters
   Wire.requestFrom(SLAVE_ADDR, READYSIZE);
 
   // Add characters to string
-  String bReady = "";
+ String bReady = "";
   while (Wire.available()) {
       char b = Wire.read();
       bReady += b;
-  } 
-
-    Wire.requestFrom(SLAVE_ADDR, FALLENSIZE);
-
-    String bFallen = "";
-  while (Wire.available()) {
-      char a = Wire.read();
-      bFallen += a;
-  } 
-  // Print to Serial Monitor
-  Serial.println(bReady);
+ } 
+//
+//    Wire.requestFrom(SLAVE_ADDR, FALLENSIZE);
+//
+//    String bFallen = "";
+//  while (Wire.available()) {
+//      char a = Wire.read();
+//      bFallen += a;
+//  } 
+//  // Print to Serial Monitor
+  
 }
