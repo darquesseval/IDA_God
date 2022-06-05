@@ -1,6 +1,3 @@
-
-let LexendZettaRegular, LexendZettaBold;//???
-
 let startSlide;
 let rebuildSlide;
 let rulesSlide;
@@ -28,6 +25,8 @@ let started = false;
 let dayStarted = false;
 let dayOver = false;
 let buildingsReady = false;
+let challengeCarryOut = false;
+let housesCarryOut = false;
 
 
 function preload(){
@@ -41,8 +40,9 @@ function preload(){
 
     challengeCard0 = select("#challenge0"); 
     challengeCard1 = select("#challenge1"); 
-    //challengeCard2, etc.
-    challenges = [challengeCard0, challengeCard1]
+    challengeCard2 = select("#challenge2"); 
+    challengeCard3 = select("#challenge3"); 
+    challenges = [challengeCard0, challengeCard1, challengeCard2, challengeCard3]
 }
 
 
@@ -53,79 +53,89 @@ function setup() {
 
   buttonArduino = createButton('Häuser');
   buttonArduino.position(windowWidth/20*17, windowHeight/20*2);
-  buttonArduino.style('background-color', 'transparent');
+  buttonArduino.style('background-color', '#b3a798');
   buttonArduino.style('color', 'white');
+  buttonArduino.style('border-color', 'transparent');
   buttonArduino.style('font-size', '2vw');
   buttonArduino.style('font-familiy', 'LexendZettaRegular, regular');
   buttonArduino.size(windowWidth/9, windowHeight/14);
+  buttonArduino.mousePressed(houses); //if houses are moved
 
   buttonArduino1 = createButton('Häuser aufgestellt');
   buttonArduino1.position(windowWidth/20*13, windowHeight/20*2);
-  buttonArduino1.style('background-color', 'transparent');
+  buttonArduino1.style('background-color', '#b3a798');
   buttonArduino1.style('color', 'white');
+  buttonArduino1.style('border-color', 'transparent');
   buttonArduino1.style('font-size', '2vw');
   buttonArduino1.style('font-familiy', 'LexendZettaRegular, regular');
   buttonArduino1.size(windowWidth/9, windowHeight/14);
   buttonArduino1.hide();
+  buttonArduino1.mousePressed(rules); // When all houses are rebuild -> function(rules)
 
   buttonAccept = createButton('Akzeprieren');
-  buttonAccept.position(windowWidth/20*8, windowHeight/20*17);
-  buttonAccept.style('background-color', 'transparent');
+  buttonAccept.position(windowWidth/20*8, windowHeight/20*6);
+  buttonAccept.style('background-color', '#b3a798');
   buttonAccept.style('color', 'white');
+  buttonAccept.style('border-color', 'transparent');
   buttonAccept.style('font-size', '2vw');
   buttonAccept.style('font-familiy', 'LexendZettaRegular, regular');
   buttonAccept.size(windowWidth/9, windowHeight/14);
   buttonAccept.hide();
+  buttonAccept.mousePressed(accept);
 
   buttonIgnore = createButton('Ignorieren');
-  buttonIgnore.position(windowWidth/20*17, windowHeight/20*17);
-  buttonIgnore.style('background-color', 'transparent');
+  buttonIgnore.position(windowWidth/20*12, windowHeight/20*6);
+  buttonIgnore.style('background-color', '#b3a798');
   buttonIgnore.style('color', 'white');
+  buttonIgnore.style('border-color', 'transparent');
   buttonIgnore.style('font-size', '2vw');
   buttonIgnore.style('font-familiy', 'LexendZettaRegular, regular');
   buttonIgnore.size(windowWidth/9, windowHeight/14);
   buttonIgnore.hide();
+  buttonIgnore.mousePressed(ignore);
 
-  buttonStart = createButton('Start');
-  buttonStart.position(windowWidth/20*17, windowHeight/20*14);
-  buttonStart.style('background-color', 'transparent');
+  buttonStart = createButton('START');
+  buttonStart.position(windowWidth/20*2, windowHeight/20*6);
+  buttonStart.style('background-color', '#b3a798');
   buttonStart.style('color', 'white');
+  buttonStart.style('border-color', 'transparent');
   buttonStart.style('font-size', '2vw');
   buttonStart.style('font-familiy', 'LexendZettaRegular, regular');
   buttonStart.size(windowWidth/9, windowHeight/14);
+  buttonStart.mousePressed(rebuild);
 
   buttonDone1 = createButton('Vollendet');
-  buttonDone1.position(windowWidth/20*8, windowHeight/20*12);
-  buttonDone1.style('background-color', 'transparent');
+  buttonDone1.position(windowWidth/20*5, windowHeight/20*12);
+  buttonDone1.style('background-color', '#b3a798');
   buttonDone1.style('color', 'white');
+  buttonDone1.style('border-color', 'transparent');
   buttonDone1.style('font-size', '2vw');
   buttonDone1.style('font-familiy', 'LexendZettaRegular, regular');
   buttonDone1.size(windowWidth/9, windowHeight/14);
   buttonDone1.hide();
+  buttonDone1.mousePressed(done1);
 
   buttonDone2 = createButton('Vollendet');
-  buttonDone2.position(windowWidth/20*12, windowHeight/20*12);
-  buttonDone2.style('background-color', 'transparent');
+  buttonDone2.position(windowWidth/20*10, windowHeight/20*12);
+  buttonDone2.style('background-color', '#b3a798');
   buttonDone2.style('color', 'white');
+  buttonDone2.style('border-color', 'transparent');
   buttonDone2.style('font-size', '2vw');
   buttonDone2.style('font-familiy', 'LexendZettaRegular, regular');
   buttonDone2.size(windowWidth/9, windowHeight/14);
   buttonDone2.hide();
+  buttonDone2.mousePressed(done2);
 
   buttonDone3 = createButton('Vollendet');
-  buttonDone3.position(windowWidth/20*16, windowHeight/20*12);
-  buttonDone3.style('background-color', 'transparent');
+  buttonDone3.position(windowWidth/20*15, windowHeight/20*12);
+  buttonDone3.style('background-color', '#b3a798');
   buttonDone3.style('color', 'white');
+  buttonDone3.style('border-color', 'transparent');
   buttonDone3.style('font-size', '2vw');
   buttonDone3.style('font-familiy', 'LexendZettaRegular, regular');
   buttonDone3.size(windowWidth/9, windowHeight/14);
   buttonDone3.hide();
-
-  buttonStart.mousePressed(rebuild);
-  buttonArduino1.mousePressed(rules); // When all houses are rebuild -> function(rules)
-  buttonArduino.mousePressed(houses); //if houses are moved
-  buttonAccept.mousePressed(accept);
-  buttonIgnore.mousePressed(ignore);
+  buttonDone3.mousePressed(done3);
 }
 
 
@@ -141,35 +151,77 @@ function draw() {
         dayStarted = true;
     }
 
-    if (k != 0 && millis() > timer + k && displayedChallenges.length != 3){
+    if (k != 0 && millis() > timer + k && displayedChallenges.length != 3 && challenges.length != 0){
+        challengeCarryOut = true;
         timer = timer + random(5000,10000);
         console.log("new challenge");
+
+        if (displayedChallenges.length == 1){
+            displayedChallenges[0].addClass("hidden");
+            displayedChallenges[0].removeClass("pos2");
+            displayedChallenges[0].removeClass("pos3");
+            displayedChallenges[0].removeClass("pos1");
+            buttonDone1.hide();
+        } else if (displayedChallenges.length == 2){
+            displayedChallenges[0].addClass("hidden");
+            displayedChallenges[0].removeClass("pos2");
+            displayedChallenges[0].removeClass("pos3");
+            displayedChallenges[0].removeClass("pos1");
+            displayedChallenges[1].removeClass("pos1");
+            displayedChallenges[1].removeClass("pos3");
+            displayedChallenges[1].addClass("hidden");
+            displayedChallenges[1].removeClass("pos2");
+            buttonDone1.hide();
+            buttonDone2.hide();
+        }
+
         challenge();
     }
 
-    if (displayedChallenges.length == 1){
+    if (displayedChallenges.length == 1 && challengeCarryOut == false){
+        displayedChallenges[0].removeClass("hidden");
+        displayedChallenges[0].removeClass("pos2");
+        displayedChallenges[0].removeClass("pos3");
+        displayedChallenges[0].addClass("pos1");
         buttonDone1.show();
-    } else if (displayedChallenges.length == 2){
+    } else if (displayedChallenges.length == 2 && challengeCarryOut == false){
+        displayedChallenges[0].removeClass("hidden");
+        displayedChallenges[0].removeClass("pos2");
+        displayedChallenges[0].removeClass("pos3");
+        displayedChallenges[0].addClass("pos1");
+        displayedChallenges[1].removeClass("pos1");
+        displayedChallenges[1].removeClass("pos3");
+        displayedChallenges[1].removeClass("hidden");
+        displayedChallenges[1].addClass("pos2");
         buttonDone1.show();
         buttonDone2.show();
-    } else if(displayedChallenges.length == 3){
+    } else if(displayedChallenges.length == 3 && challengeCarryOut == false){
+        displayedChallenges[0].removeClass("hidden");
+        displayedChallenges[0].removeClass("pos2");
+        displayedChallenges[0].removeClass("pos3");
+        displayedChallenges[0].addClass("pos1");
+        displayedChallenges[1].removeClass("pos1");
+        displayedChallenges[1].removeClass("pos3");
+        displayedChallenges[1].removeClass("hidden");
+        displayedChallenges[1].addClass("pos2");
+        displayedChallenges[2].removeClass("pos2");
+        displayedChallenges[2].removeClass("pos1");
+        displayedChallenges[2].removeClass("hidden");
+        displayedChallenges[2].addClass("pos3");
         buttonDone1.show();
         buttonDone2.show();
         buttonDone3.show();
     }
 
-    if (millis() > k + 60000 && dayOver == false){
+    if (k != 0 && millis() > k + 60000 && dayOver == false){
         end();
         dayOver = true;
     }
 }
 
-
-// function start(){
-//     buttonStart.mousePressed(rebuild);
-// }
 function rebuild() {
     if (started == false){
+        window.history.pushState("object or string", "Title", "started");
         startSlide.toggleClass("hidden");
         rebuildSlide.toggleClass("hidden");
         buttonStart.hide();
@@ -187,6 +239,7 @@ function challenge(){ //bugs: when this function is still running while new chal
     q = int(random(0, challenges.length));
     console.log(q);
     console.log(challenges.length);
+
     homeSlide.toggleClass("hidden");
     challengeSlide.toggleClass("hidden");
 
@@ -200,18 +253,19 @@ function accept(){
     challengeSlide.toggleClass("hidden");
     homeSlide.toggleClass("hidden");
     challenges[q].removeClass("pos1");
-    challenges[q].addClass("hidden");
     buttonAccept.hide();
     buttonIgnore.hide();
 
+    if (displayedChallenges.length == 1){
+        displayedChallenges[0].removeClass("hidden")
+    } else if (displayedChallenges.length == 2){
+        displayedChallenges[0].removeClass("hidden")
+        displayedChallenges[1].removeClass("hidden")
+    }
     displayedChallenges.splice(0, 0, challenges[q]);
     challenges.splice(q, 1);
-
-     displayedChallenge[0].addClass("pos1");
-     displayedChallenge[1].addClass("pos2");
-     displayedChallenge[2].addClass("pos3");
-
     //play Yey! Sound
+    challengeCarryOut = false
 }
 function ignore(){
     var element = document.getElementById("challenge");
@@ -222,6 +276,31 @@ function ignore(){
     buttonIgnore.hide();
     challenges.splice(q, 1);
     //play Nooo! Sound
+    challengeCarryOut = false
+}
+function done1(){
+    displayedChallenges[0].removeClass("pos1");
+    displayedChallenges[0].addClass("hidden");
+    displayedChallenges.splice(0, 1);
+    buttonDone1.hide();
+    buttonDone2.hide();
+    buttonDone3.hide();
+}
+function done2(){
+    displayedChallenges[1].removeClass("pos2");
+    displayedChallenges[1].addClass("hidden");
+    displayedChallenges.splice(1, 1);
+    buttonDone1.hide();
+    buttonDone2.hide();
+    buttonDone3.hide();
+}
+function done3(){
+    displayedChallenges[2].removeClass("pos3");
+    displayedChallenges[2].addClass("hidden");
+    displayedChallenges.splice(2, 1);
+    buttonDone1.hide();
+    buttonDone2.hide();
+    buttonDone3.hide();
 }
 function houses(){
     homeSlide.toggleClass("hidden");
